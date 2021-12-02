@@ -1,0 +1,22 @@
+{
+    "name": "sdn/module-pmw",
+    "description": "add new block in checkout with weather forecast",
+    "type": "magento2-module",
+    "license": "no license",
+    "authors": [
+        {
+            "name": "SDN N",
+            "email": "ddimitriuss@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "SDN\\PMW\\": ""
+        }
+    }
+}
