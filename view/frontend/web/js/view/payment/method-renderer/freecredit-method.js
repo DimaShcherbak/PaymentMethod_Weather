@@ -21,6 +21,7 @@ define(
             city: ko.observable(null),
             temp: ko.observable(null),
             weatherVisible: ko.observable(false),
+            errorCity: ko.observable(false),
 
             getMailingAddress: function () {
                 return window.checkoutConfig.payment.checkmo.mailingAddress;
@@ -28,7 +29,9 @@ define(
             getInstructions: function () {
                 return window.checkoutConfig.payment.instructions[this.item.method];
             },
-
+            getCity: function () {
+               return quote.shippingAddress().city;
+            },
             increase: function () {
                 var self = this;
                 $.ajax({
@@ -39,11 +42,15 @@ define(
                     },
                     success: function (data) {
                         // console.log('success ajax success')
-                        // console.log(data)
                         var obj = jQuery.parseJSON(data)
-                        self.city(obj.name);
-                        self.temp(obj.main.temp);
-                        self.weatherVisible(true);
+                        console.log(obj)
+                        if (obj.cod !== "404") {
+                            self.city(obj.name);
+                            self.temp(obj.main.temp);
+                            self.weatherVisible(true);
+                        } else {
+                            self.errorCity(true)
+                        }
                     },
                     error: function (data) { // Данные не отправлены
                         console.log('error error error')
